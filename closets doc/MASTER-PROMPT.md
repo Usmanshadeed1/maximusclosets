@@ -68,7 +68,7 @@ Until this block is filled, use neutral gray tokens and styled placeholders. NEV
 | # | Section | Spec |
 |---|---------|------|
 | 0 | Announcement bar | Slim, dismissible: financing + free 3D design line |
-| 1 | Header | Transparent over hero → solid + shrink on scroll; logo, nav (Closets, Home Storage, Ideas, Gallery, Guides, Locations), click-to-call phone, accent CTA button; full-screen mobile menu, hamburger animates to X |
+| 1 | Header | Transparent over hero → solid + shrink on scroll; logo, nav (Closets, Home Storage, Ideas, Gallery, Guides), click-to-call phone, accent CTA button; full-screen mobile menu, hamburger animates to X |
 | 2 | Hero | Full-bleed image, slow Ken Burns zoom; giant two-tone headline; sub-line; floating consultation card (desktop) / stacked CTAs (mobile); scroll-hint |
 | 3 | Trust strip | Count-up stats (★ rating, projects, years) + NJ license # + PA # + "Licensed & Insured" badges |
 | 4 | Brand statement micro-band | ONE elegant sentence, big typography, lots of air (e.g., "We believe every home hides more space than it shows.") — 

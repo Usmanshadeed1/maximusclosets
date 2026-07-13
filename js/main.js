@@ -475,26 +475,62 @@
     });
   }
 
-  /* ---------- S10: Gallery — lightbox ---------- */
+  /* ---------- S10: Gallery — filter chips + lightbox ---------- */
   var galleryGrid = $("#galleryGrid");
   var galleryItems = galleryGrid ? $$(".gallery__item") : [];
+  var visibleItems = galleryItems.slice();
+
+  var filterBtns = $$(".gallery-filter__btn");
+  if (filterBtns.length && galleryItems.length) {
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        filterBtns.forEach(function (b) {
+          b.classList.remove("is-active");
+          b.setAttribute("aria-pressed", "false");
+        });
+        btn.classList.add("is-active");
+        btn.setAttribute("aria-pressed", "true");
+
+        var cat = btn.getAttribute("data-filter");
+        galleryItems.forEach(function (item) {
+          var match = cat === "all" || item.getAttribute("data-cat") === cat;
+          item.classList.toggle("is-hidden", !match);
+        });
+        visibleItems = galleryItems.filter(function (item) {
+          return !item.classList.contains("is-hidden");
+        });
+      });
+    });
+  }
 
   var lightbox = $("#lightbox");
   var lightboxImg = $("#lightboxImg");
+  var lightboxCat = $("#lightboxCat");
   var lightboxCount = $("#lightboxCount");
   var lightboxClose = $("#lightboxClose");
   var lightboxPrev = $("#lightboxPrev");
   var lightboxNext = $("#lightboxNext");
 
+  var catLabels = {
+    closets: "Closets",
+    pantries: "Pantries",
+    garages: "Garages",
+    offices: "Home Offices",
+    mudroom: "Mudrooms & Laundry"
+  };
+
   if (lightbox && lightboxImg && galleryItems.length) {
     var lbIndex = 0;
 
     var openLightbox = function (index) {
-      lbIndex = (index + galleryItems.length) % galleryItems.length;
-      var img = galleryItems[lbIndex].querySelector("img");
+      if (!visibleItems.length) return;
+      lbIndex = (index + visibleItems.length) % visibleItems.length;
+      var item = visibleItems[lbIndex];
+      var img = item.querySelector("img");
       lightboxImg.src = img.src;
       lightboxImg.alt = img.alt;
-      if (lightboxCount) lightboxCount.textContent = (lbIndex + 1) + " / " + galleryItems.length;
+      if (lightboxCat) lightboxCat.textContent = catLabels[item.getAttribute("data-cat")] || "";
+      if (lightboxCount) lightboxCount.textContent = (lbIndex + 1) + " / " + visibleItems.length;
       lightbox.hidden = false;
       document.body.classList.add("menu-open"); /* reuses the existing scroll-lock rule */
     };
@@ -504,8 +540,11 @@
       document.body.classList.remove("menu-open");
     };
 
-    galleryItems.forEach(function (item, i) {
-      item.addEventListener("click", function () { openLightbox(i); });
+    galleryItems.forEach(function (item) {
+      item.addEventListener("click", function () {
+        var idx = visibleItems.indexOf(item);
+        if (idx !== -1) openLightbox(idx);
+      });
     });
 
     if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
@@ -523,6 +562,30 @@
       else if (e.key === "ArrowLeft") openLightbox(lbIndex - 1);
       else if (e.key === "ArrowRight") openLightbox(lbIndex + 1);
     });
+
+    /* swipe/drag left-right on the photo to navigate — works with touch and mouse */
+    var swipeStartX = 0;
+    var swipeStartY = 0;
+    var swiping = false;
+
+    lightboxImg.addEventListener("pointerdown", function (e) {
+      swiping = true;
+      swipeStartX = e.clientX;
+      swipeStartY = e.clientY;
+      lightboxImg.setPointerCapture(e.pointerId);
+      e.preventDefault(); /* stops native image-drag ghost */
+    });
+    lightboxImg.addEventListener("pointerup", function (e) {
+      if (!swiping) return;
+      swiping = false;
+      var dx = e.clientX - swipeStartX;
+      var dy = e.clientY - swipeStartY;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx < 0) openLightbox(lbIndex + 1);
+        else openLightbox(lbIndex - 1);
+      }
+    });
+    lightboxImg.addEventListener("pointercancel", function () { swiping = false; });
   }
 
   if ("IntersectionObserver" in window) {

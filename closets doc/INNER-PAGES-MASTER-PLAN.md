@@ -13,7 +13,6 @@ Each page is its own folder with its own `index.html`, sharing the site's one `c
 /closet-design-ideas/index.html
 /gallery/index.html
 /guides/index.html
-/locations/index.html
 /about/index.html
 /contact/index.html
 ```
@@ -33,7 +32,6 @@ Nav order, highest commercial value first:
 5. **Design Ideas** (hub)
 6. **Gallery** (standalone, full version)
 7. **Guides** (hub)
-8. **Locations** (hub)
 
 Same workflow as homepage: **one page at a time, section by section within it, wait for approval before moving on.** Never build ahead.
 
@@ -123,18 +121,6 @@ No FAQ here — this page is pure inspiration, not a buying-decision page (that'
 | 6 | Footer |
 
 Individual guide articles (Level 3/4) are separate future pages — this is just the directory.
-
-### H) Locations — hub
-| # | Section | Notes |
-|---|---|---|
-| 1 | Header + breadcrumb |
-| 2 | Compact hero | H1: Serving New Jersey & Pennsylvania |
-| 3 | Two-column state split | NJ counties/cities list · PA counties/cities list — links to city pages (built later; link now, per silo) |
-| 4 | Service-area note | Short honest copy: service-area business, no showroom, visits by appointment |
-| 5 | CTA band |
-| 6 | Footer |
-
-City pages themselves (Level 3/4) are future work — not now, per your "no hundreds of pages yet" instruction.
 
 ---
 
