@@ -17,7 +17,7 @@
 
   function setHeaderState() {
     if (!header) return;
-    if (window.scrollY > 24) {
+    if (header.classList.contains("header--force-solid") || window.scrollY > 24) {
       header.classList.add("header--solid");
     } else {
       header.classList.remove("header--solid");
@@ -126,34 +126,32 @@
     });
   }
 
-  /* ---------- S5: Services card slider — arrow controls ---------- */
-  var svcList = $(".svc-list");
-  var svcPrev = $("#svcPrev");
-  var svcNext = $("#svcNext");
-
-  function svcScroll(dir) {
+  /* ---------- S5: Services card sliders — arrow controls, one instance per .services section ---------- */
+  $$(".services").forEach(function (section) {
+    var svcList = section.querySelector(".svc-list");
+    var svcPrev = section.querySelector(".svc-nav__btn--prev");
+    var svcNext = section.querySelector(".svc-nav__btn--next");
     if (!svcList) return;
-    var card = svcList.querySelector(".svc-row");
-    var step = card ? card.getBoundingClientRect().width + 16 : 320;
-    svcList.scrollBy({ left: dir * step, behavior: reducedMotion ? "auto" : "smooth" });
-  }
-
-  if (svcPrev && svcNext) {
-    svcPrev.addEventListener("click", function () { svcScroll(-1); });
-    svcNext.addEventListener("click", function () { svcScroll(1); });
-  }
-
-  /* mouse drag-to-swipe on desktop — pointer capture + snap on release */
-  if (svcList) {
-    var dragActive = false;
-    var dragMoved = false;
-    var dragStartX = 0;
-    var dragStartScroll = 0;
 
     function cardStep() {
       var c = svcList.querySelector(".svc-row");
       return c ? c.getBoundingClientRect().width + 16 : 320;
     }
+
+    function svcScroll(dir) {
+      svcList.scrollBy({ left: dir * cardStep(), behavior: reducedMotion ? "auto" : "smooth" });
+    }
+
+    if (svcPrev && svcNext) {
+      svcPrev.addEventListener("click", function () { svcScroll(-1); });
+      svcNext.addEventListener("click", function () { svcScroll(1); });
+    }
+
+    /* mouse drag-to-swipe on desktop — pointer capture + snap on release */
+    var dragActive = false;
+    var dragMoved = false;
+    var dragStartX = 0;
+    var dragStartScroll = 0;
 
     /* after release: glide to the nearest card like native mobile snapping */
     function snapToNearest() {
@@ -210,7 +208,7 @@
         dragMoved = false;
       }
     }, true);
-  }
+  });
 
   /* ---------- S13: Contact form (front-end only until a backend/CRM is wired up) ---------- */
   var contactForm = $("#contactForm");
