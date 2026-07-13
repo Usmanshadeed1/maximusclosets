@@ -304,6 +304,7 @@ body.menu-open { overflow: hidden; }
 .page-hero__bg--homestorage { background-image: url("../images/w=1920,q=75 (4).png"); }
 .page-hero__bg--contact { background-image: url("../images/d2r-real-install.jpg"); }
 .page-hero__bg--about { background-image: url("../images/w=1920,q=75 (3).png"); }
+.page-hero__bg--designideas { background-image: url("../images/w=1920,q=75 (2).png"); }
 @keyframes page-hero-zoom {
   from { transform: scale(1.08); }
   to   { transform: scale(1); }
@@ -372,6 +373,16 @@ body.menu-open { overflow: hidden; }
   gap: 14px;
 }
 @media (max-width: 900px) { .subcat__grid { grid-template-columns: repeat(2, 1fr); } }
+
+.subcat__grid--2col { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.subcat-card--lg { aspect-ratio: 4 / 3.4; }
+.subcat-card--lg .subcat-card__label { font-size: 19px; padding: var(--s3); }
+.subcat-card--lg .subcat-card__desc { font-size: 13.5px; padding: 0 var(--s3); }
+.subcat-card--lg.subcat-card--photo:hover .subcat-card__desc { padding-top: 16px; max-height: 140px; }
+@media (max-width: 640px) {
+  .subcat__grid--2col { grid-template-columns: 1fr; }
+  .subcat-card--lg { aspect-ratio: 4 / 3.2; }
+}
 
 .subcat-card {
   position: relative;
@@ -618,6 +629,175 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 480px) {
   .process-recap__grid { grid-template-columns: 1fr; }
   .process-recap__title { margin-top: var(--s3); }
+}
+
+/* ============================================================
+   DESIGN IDEAS PAGE — colors & materials swatch cards
+   ============================================================ */
+.materials { background: #F5F7FA; }
+.materials__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(56px, 7vw, 96px) var(--s3);
+}
+@media (max-width: 640px) { .materials__inner { padding-left: var(--s2); padding-right: var(--s2); } }
+
+.materials__grid {
+  margin-top: clamp(28px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.materials__card {
+  display: block;
+  padding: var(--s2);
+  background: var(--white);
+  border: 1px solid var(--line);
+  transition: border-color 0.25s var(--ease);
+}
+.materials__card:hover { border-color: var(--blue); }
+
+.materials__palette { display: flex; gap: 8px; }
+.materials__palette span {
+  flex: 1;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s var(--ease);
+}
+.materials__card:hover .materials__palette span { transform: scale(1.08); }
+.materials__card:hover .materials__palette span:nth-child(2) { transition-delay: 0.03s; }
+.materials__card:hover .materials__palette span:nth-child(3) { transition-delay: 0.06s; }
+.materials__card:hover .materials__palette span:nth-child(4) { transition-delay: 0.09s; }
+.materials__card:hover .materials__palette span:nth-child(5) { transition-delay: 0.12s; }
+
+.materials__title {
+  margin-top: var(--s2);
+  font: 700 15.5px/1.3 var(--font-head);
+  color: var(--ink);
+}
+.materials__text {
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(16, 18, 22, 0.62);
+}
+
+@media (max-width: 900px) {
+  .materials__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .materials__grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   DESIGN IDEAS PAGE — hardware & lighting
+   ============================================================ */
+.hw-light { background: var(--blue-ink); }
+.hw-light .sec-title { color: var(--white); }
+.hw-light__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(56px, 7vw, 96px) var(--s3);
+}
+@media (max-width: 640px) { .hw-light__inner { padding-left: var(--s2); padding-right: var(--s2); } }
+
+.hw-light__grid {
+  margin-top: clamp(28px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.hw-light__card {
+  display: block;
+  padding: clamp(24px, 3vw, 32px);
+  background: var(--white);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.hw-light__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 48px -20px rgba(0, 0, 0, 0.5);
+}
+.hw-light__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(27, 69, 149, 0.08);
+  color: var(--blue);
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.hw-light__card:hover .hw-light__icon { background: var(--gold); color: var(--blue-ink); }
+.hw-light__title {
+  margin-top: var(--s2);
+  font: 700 15.5px/1.3 var(--font-head);
+  color: var(--ink);
+}
+.hw-light__text {
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(16, 18, 22, 0.62);
+}
+
+@media (max-width: 900px) {
+  .hw-light__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .hw-light__grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   DESIGN IDEAS PAGE — small space solutions
+   ============================================================ */
+.small-space { background: var(--white); }
+.small-space__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(56px, 7vw, 96px) var(--s3);
+}
+@media (max-width: 640px) { .small-space__inner { padding-left: var(--s2); padding-right: var(--s2); } }
+
+.small-space__grid {
+  margin-top: clamp(28px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.small-space__card {
+  display: block;
+  padding: clamp(28px, 3.5vw, 40px);
+  background: var(--blue-ink);
+  color: var(--white);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.small-space__card:hover { transform: translateY(-4px); box-shadow: 0 22px 48px -20px rgba(0, 0, 0, 0.45); }
+.small-space__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--gold);
+}
+.small-space__title {
+  margin-top: var(--s2);
+  font: 700 17px/1.3 var(--font-head);
+}
+.small-space__text {
+  margin-top: 8px;
+  max-width: 42ch;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+@media (max-width: 640px) {
+  .small-space__grid { grid-template-columns: 1fr; }
 }
 
 /* ============================================================
